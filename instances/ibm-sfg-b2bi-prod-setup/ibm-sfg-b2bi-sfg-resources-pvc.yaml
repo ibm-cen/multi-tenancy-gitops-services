@@ -17,5 +17,5 @@ spec:
   resources:
     requests:
       storage: 100Mi
-  storageClassName: ibmc-file-gold-gid
+  storageClassName: managed-nfs-storage
   volumeMode: Filesystem
