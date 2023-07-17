@@ -13,13 +13,13 @@ global:
   # Non-production respectively. Remember that this parameter is crucial for IBM Licensing and Metering Service
   licenseType: "prod"
   image:
-    repository: "image-registry.openshift-image-registry.svc:5000/b2bi-prod/b2bi"
+    repository: "quay.io/shadyattia/b2bi-6.2"
   # Provide the tag value in double quotes
-    tag: "6.2.23"
+    tag: "v23"
   # If digest is specified, it takes precedence over tag
     digest: sha256:3e39915ea43e6cfed49325d6d979938859e942da7af699f088cc11bde88b3da5
     pullPolicy: IfNotPresent
-    pullSecret: ""
+    pullSecret: "ibm-entitlement-key"
   networkPolicies:
     ingress:
       enabled: false
@@ -151,16 +151,16 @@ ingress:
   port:
 
 dataSetup:
-  enabled: false
+  enabled: true
   upgrade: false
   image:
-    repository: "image-registry.openshift-image-registry.svc:5000/b2bi-prod/b2bi-dbsetup"
+    repository: "quay.io/shadyattia/b2bi-db-6.2"
     # Provide the tag value in double quotes
-    tag: "db6.2.23"
+    tag: "v23"
      # If digest is specified, it takes precedence over tag
     digest: sha256:140d89799208ec6bc1e0b5787d42b1524dc9933c83c67a54e2aeab9b18c289c9
     pullPolicy: IfNotPresent
-    pullSecret: ""
+    pullSecret: "ibm-entitlement-key"
 
 
 env:
@@ -233,15 +233,15 @@ integrations:
         # Supported levels are "none", "failures", "info" and "all". Default is "none".
         level: "none"
   itxaIntegration:
-    enabled: true
+    enabled: false
     dataSetup:
       enabled: true
     image:
-      repository: "image-registry.openshift-image-registry.svc:5000/b2bi-prod/itxa-runtime"
-      tag: "10.0.1.8"
+      repository: "quay.io/shadyattia/itxa-runtime"
+      tag: "v10.0.1.8"
       digest: "sha256:e21be777f600072613730ad9cc171df4ede9e021bacd84b373ffc8e85bc0992c"
       pullPolicy: IfNotPresent
-      pullSecret: ""
+      pullSecret: "ibm-entitlement-key"
     appSecret: "itxa-db2-secrets"
     secureDBConnection:
       enabled: false
@@ -250,7 +250,7 @@ integrations:
       claims:
         name: itxa-nfs-claim
     sso:
-      host: "itxa.itzroks-664003h6xc-uqjsu5-4b4a324f027aea19c5cbc0c3275c4656-0000.us-south.containers.appdomain.cloud"
+      host: "itxa.b2bi-test-cluster-dal10-0defdaa0c51bd4a2dcb024eab4bf04a1-0000.us-south.containers.appdomain.cloud"
       port: 80
       ssl:
         enabled: false
@@ -275,11 +275,11 @@ setupCfg:
 
   # Provide the DB attributes
   dbVendor: db2
-  dbHost: 172.21.24.222
+  dbHost: db2-lb
   dbPort: 50000
   dbData: B2BIDB
   dbDrivers: db2jcc4.jar
-  dbCreateSchema: false
+  dbCreateSchema: true
   oracleUseServiceName: false
   # Values can be either true or false 
   usessl: false
@@ -522,7 +522,7 @@ asi:
     
   ingress:
     internal:
-      host: "asi-b2bi-prod.itzroks-664003h6xc-uqjsu5-4b4a324f027aea19c5cbc0c3275c4656-0000.us-south.containers.appdomain.cloud"
+      host: "asi-b2bi-prod.b2bi-test-cluster-dal10-0defdaa0c51bd4a2dcb024eab4bf04a1-0000.us-south.containers.appdomain.cloud"
       tls:
         enabled: false
         secretName: ""
@@ -532,7 +532,7 @@ asi:
       #    servicePort: "my-http"
       #    enableHttps: false
     external:
-      host: "ex-asi-b2bi-prod.itzroks-664003h6xc-uqjsu5-4b4a324f027aea19c5cbc0c3275c4656-0000.us-south.containers.appdomain.cloud"
+      host: "ex-asi-b2bi-prod.b2bi-test-cluster-dal10-0defdaa0c51bd4a2dcb024eab4bf04a1-0000.us-south.containers.appdomain.cloud"
       tls:
         enabled: false
         secretName: ""
@@ -798,7 +798,7 @@ ac:
       
   ingress:
     internal:
-      host: "ac-b2bi-prod.itzroks-664003h6xc-uqjsu5-4b4a324f027aea19c5cbc0c3275c4656-0000.us-south.containers.appdomain.cloud"
+      host: "ac-b2bi-prod.b2bi-test-cluster-dal10-0defdaa0c51bd4a2dcb024eab4bf04a1-0000.us-south.containers.appdomain.cloud"
       tls:
         enabled: false
         secretName: ""
@@ -808,7 +808,7 @@ ac:
       #    servicePort: "my-http"
       #    enableHttps: false
     external:
-      host: "ex-ac-b2bi-prod.itzroks-664003h6xc-uqjsu5-4b4a324f027aea19c5cbc0c3275c4656-0000.us-south.containers.appdomain.cloud"
+      host: "ex-ac-b2bi-prod.b2bi-test-cluster-dal10-0defdaa0c51bd4a2dcb024eab4bf04a1-0000.us-south.containers.appdomain.cloud"
       tls:
         enabled: false
         secretName: ""
@@ -1044,7 +1044,7 @@ api:
 
   ingress:
     internal:
-      host: "api-b2bi-prod.itzroks-664003h6xc-uqjsu5-4b4a324f027aea19c5cbc0c3275c4656-0000.us-south.containers.appdomain.cloud"
+      host: "api-b2bi-prod.b2bi-test-cluster-dal10-0defdaa0c51bd4a2dcb024eab4bf04a1-0000.us-south.containers.appdomain.cloud"
       tls:
         enabled: false
         secretName: ""
