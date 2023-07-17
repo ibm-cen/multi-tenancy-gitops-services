@@ -1,5 +1,5 @@
 # (C) Copyright 2019-2022 Syncsort Incorporated. All rights reserved.
-
+#Add test here
 {{ include "sch.config.init" (list . "b2bi.sch.chart.config.values") }}
 {{- $ibmsecretexist := ((empty (lookup "v1" "Secret" .Release.Namespace .sch.chart.components.ibmDefaultPullSecret.name)) | ternary "false" "true") }}
 apiVersion: batch/v1
