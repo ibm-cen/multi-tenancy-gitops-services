@@ -10,7 +10,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ibmc-file-gold-gid
+  storageClassName: managed-nfs-storage
   # volumeName: itxa-pv-sc
 
 
